@@ -3,6 +3,9 @@
 Scan Me is a simple Rust-based network scanner that allows users to input IP addresses or ranges of IP addresses to scan for open ports. The program uses system pings to check if the IP addresses are reachable and then scans the specified ports to determine their state (open, closed, or filtered).
 
 ## Notes 
+-----------------------------------------------------------------------------------------
+v0.1
+------
 Initial version, the scanner is limited to certain ports for the moment:
     FTP: 20, 21
     SSH: 22
@@ -16,6 +19,7 @@ Initial version, the scanner is limited to certain ports for the moment:
     Remote desktop: 3389
     
 Many improvements are still to come to the code... and other more features to come later.
+-----------------------------------------------------------------------------------------
 
 ## Features
 
