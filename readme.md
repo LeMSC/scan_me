@@ -14,6 +14,7 @@ Initial version, the scanner is limited to certain ports for the moment:
     HTTP/HTTPS: 80, 443, 8080, 8443
     Database services: 1433, 1434, 3306
     Remote desktop: 3389
+    
 Many improvements are still to come to the code... and other more features to come later.
 
 ## Features
