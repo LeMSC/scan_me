@@ -4,9 +4,9 @@ Scan Me is a simple Rust-based network scanner that allows users to input IP add
 
 ## Notes 
 -----------------------------------------------------------------------------------------
-v0.1
+v0.1 - Initial version 
 ------
-Initial version, the scanner is limited to certain ports for the moment:
+The scanner is limited to certain ports for the moment:
     FTP: 20, 21
     SSH: 22
     Telnet: 23
