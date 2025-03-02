@@ -31,6 +31,38 @@ Many improvements are still to come to the code... and other more features to co
 2. **Enter IP Addresses**: When prompted, enter an IP address, a range of IP addresses (e.g., `192.168.1.1-192.168.1.254`), or a list of IP addresses (e.g., `192.168.1.1,192.168.1.2`).
 3. **View Results**: The program will display the scan results in a table format.
 
+## How to Run
+
+1. Ensure you have Rust installed. If not, you can install it from [rust-lang.org](https://www.rust-lang.org/).
+2. Clone this repository.
+3. Navigate to the project directory.
+4. Run the application using Cargo:
+
+```sh
+cargo run
+```
+
+## Example
+
+```sh
+$ cargo run
+Scan Me - v0.1 - MSC 2025
+----------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------------------
+Enter the IP address or range of IP addresses to scan (e.g., 192.168.1.1-192.168.1.254 or 192.168.1.1,192.168.1.2) or 'q' to quit:
+---------------------------------------------------------------------------------------------------------------------------------------
+
+192.168.1.1-192.168.1.254
+
+IP Address       Port    Service             State       Error
+192.168.1.1      22      SSH                 Open        
+192.168.1.1      80      HTTP/HTTPS          Closed      
+192.168.1.2      22      SSH                 Filtered    
+192.168.1.2      80      HTTP/HTTPS          Open        
+...
+```
+
 ## Dependencies
 Add the following dependencies to your `Cargo.toml` file:
 
@@ -168,38 +200,6 @@ async fn scan_tcp_rst(ip: &IpAddr, port: u16, result: &mut ScanResult) -> bool {
 ```rust
 // Define target ports
 const TARGET_PORTS: [u16; 15] = [20, 21, 22, 23, 25, 53, 137, 139, 445, 80, 443, 8080, 8443, 1433, 3306];
-```
-
-## How to Run
-
-1. Ensure you have Rust installed. If not, you can install it from [rust-lang.org](https://www.rust-lang.org/).
-2. Clone this repository.
-3. Navigate to the project directory.
-4. Run the application using Cargo:
-
-```sh
-cargo run
-```
-
-## Example
-
-```sh
-$ cargo run
-Scan Me - v0.1 - MSC 2025
-----------------------------------------------------------------------------------
-
----------------------------------------------------------------------------------------------------------------------------------------
-Enter the IP address or range of IP addresses to scan (e.g., 192.168.1.1-192.168.1.254 or 192.168.1.1,192.168.1.2) or 'q' to quit:
----------------------------------------------------------------------------------------------------------------------------------------
-
-192.168.1.1-192.168.1.254
-
-IP Address       Port    Service             State       Error
-192.168.1.1      22      SSH                 Open        
-192.168.1.1      80      HTTP/HTTPS          Closed      
-192.168.1.2      22      SSH                 Filtered    
-192.168.1.2      80      HTTP/HTTPS          Open        
-...
 ```
 
 ## Conclusion
