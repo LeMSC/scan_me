@@ -18,8 +18,7 @@ The scanner is limited to certain ports for the moment:
     Database services: 1433, 1434, 3306
     Remote desktop: 3389
     
-Many improvements are still to come to the code... and other more features to come later.
------------------------------------------------------------------------------------------
+Many improvements are still to come to the code... and other more features to come later !
 
 ## Features
 
