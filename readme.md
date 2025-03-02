@@ -86,8 +86,53 @@ fn parse_ip_input(input: &str) -> Result<Vec<IpAddr>, String> {
     IpAddr::from_str(input).map(|ip| vec![ip]).map_err(|_| "Invalid IP address".to_string())
 }
 ```
+
 - **`ping_ip`**: Uses system pings (for the moment) to check if an IP address is reachable. Returns a boolean indicating the reachability of the IP address.
 - **`scan_ports`**: Scans the specified ports on a given IP address to determine their state (open, closed, or filtered). Updates the scan results.
+```rust
+/// Scan ports on the given IP address
+async fn scan_ports(ip: &IpAddr, results: Arc<Mutex<Vec<ScanResult>>>) {
+    for port in TARGET_PORTS {
+        let mut result = ScanResult {
+            ip: *ip,
+            port,
+            state: "Filtered".to_string(),
+            error: "".to_string(),
+        };
+
+        let results = Arc::clone(&results);
+        let scan_future = async move {
+            let socket = SocketAddr::new(*ip, port);
+            match timeout(Duration::from_millis(500), TcpStream::connect(socket)).await {
+                Ok(Ok(_)) => {
+                    result.state = "Open".to_string();
+                }
+                Ok(Err(_)) => {
+                    result.state = "Closed".to_string();
+                }
+                Err(_) => {
+                    // If connection failed: try RST
+                    let mut rst_result = ScanResult {
+                        ip: *ip,
+                        port,
+                        state: "Filtered".to_string(),
+                        error: "".to_string(),
+                    };
+                    if scan_tcp_rst(&ip, port, &mut rst_result).await {
+                        result.state = rst_result.state;
+                    }
+                }
+            }
+
+            let mut results_guard = results.lock().unwrap();
+            results_guard.push(result);
+        };
+
+        scan_future.await;
+    }
+}
+```
+
 - **`scan_tcp_rst`**: Performs a TCP RST scan on a given IP address and port to determine if the port is filtered.
 ```rust
 /// Scan TCP RST
